@@ -1,0 +1,21 @@
+.container {
+    max-width: 550px;
+    min-height: calc(100vh - 62px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    
+    form.form-html {
+    border: 2px solid var(--bs-dark);
+    border-radius: 6px;
+    
+    padding: 20px;
+    
+    box-shadow: 7px 10px 23px 4px rgba(17,17,17,0.5);
+    }
+    
+    .submit-button {
+    width: 100%;
+    }
+    
