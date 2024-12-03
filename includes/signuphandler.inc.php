@@ -13,6 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $errors = false;
     if (empty($first_name) || empty($last_name) || empty($email) || empty($password)) {
         $errors = true;
+    } else {
+        header("Location: ../forms/signup/signup.html");
     }
 
     if (!$errors) {
@@ -41,6 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         } catch(PDOException $e) {
             die("query failed : " . $e->getMessage());
         }
+    } else {
+        header("Location: ../forms/signup/signup.html");
     }
 
 } else {
