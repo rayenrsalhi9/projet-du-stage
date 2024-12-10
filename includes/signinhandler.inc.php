@@ -37,6 +37,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             die();
         }
 
+        $new_session_id = session_create_id();
+        $session_id = $new_session_id . "_" . search_email($pdo, $email)["id"];
+        session_id($session_id);
+
+        $_SESSION["user_id"] = search_email($pdo, $email)["id"];
+        $_SESSION["user_fname"] = htmlspecialchars(search_email($pdo, $email)["first_name"]);
+        $_SESSION["user_lname"] = htmlspecialchars(search_email($pdo, $email)["last_name"]);
+
+        $_SESSION["last_regeneration"] = time();
+
         header("Location: ../forms/signin/signin.php?login=successful");
         $pdo = null;
         $stmt = null;
