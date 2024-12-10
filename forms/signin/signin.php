@@ -1,3 +1,8 @@
+<?php
+  require_once "../../includes/config_session.inc.php";
+  require_once "../../includes/login_mvc/login_view.inc.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,25 +72,26 @@
 
     <!-- start of signin -->
     <div class="container">
-        <form class="form-html">
+        <form class="form-html" action="../../includes/signinhandler.inc.php" method="POST">
           <div class="mb-3">
             <h1>Sign in</h1>
           </div>
           <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" name="email" aria-describedby="email" placeholder="name@example.com">
+            <input type="email" class="form-control" name="email" aria-describedby="email">
             <div id="emailHelp" class="form-text">Your email will <b>never</b> be shared with anyone</div>
           </div>
           <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" name="password" placeholder="Must be 8-20 characters long.">
-          </div>
-          <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" name="check">
-            <label class="form-check-label" for="check">Remember me next time</label>
+            <label for="pwd" class="form-label">Password</label>
+            <input type="password" class="form-control" name="pwd">
           </div>
           <p class="form-text">First time here?<a href="../signup/signup.php"> Create an account</a></p>
           <button type="submit" class="btn btn-dark submit-button">Sign in</button>
+          <div class="mb-3 alert-msgs">
+            <?php
+              check_login_errors();
+            ?>
+          </div>
         </form>
       </div>
       
