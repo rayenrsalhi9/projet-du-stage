@@ -31,7 +31,7 @@
                 <a class="nav-link" href="../../about/about.html">About us</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link active" href="signin.html" aria-current="page">Sign in</a>
+                <a class="nav-link active" href="signin.php" aria-current="page">Sign in</a>
                 </li>
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -84,7 +84,7 @@
             <input type="checkbox" class="form-check-input" name="check">
             <label class="form-check-label" for="check">Remember me next time</label>
           </div>
-          <p class="form-text">First time here?<a href="../signup/signup.html"> Create an account</a></p>
+          <p class="form-text">First time here?<a href="../signup/signup.php"> Create an account</a></p>
           <button type="submit" class="btn btn-dark submit-button">Sign in</button>
         </form>
       </div>

@@ -1,52 +1,58 @@
-<?php 
+<?php
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-
-    // gather data
 
     $first_name = $_POST["first_name"];
     $last_name = $_POST["last_name"];
     $email = $_POST["email"];
-    $password = $_POST["password"];
+    $pwd = $_POST["pwd"];
 
-    // check non empty fields 
-    $errors = false;
-    if (empty($first_name) || empty($last_name) || empty($email) || empty($password)) {
-        $errors = true;
-    } else {
-        header("Location: ../forms/signup/signup.html");
-    }
+    try {
+        require_once "dbh.inc.php";
+        require_once "signup_mvc/signup_model.inc.php";
+        require_once "signup_mvc/signup_contr.inc.php";
 
-    if (!$errors) {
-        try {
-            require_once "dbh.inc.php";
+        // error handlers
+        $errors = [];
 
-            $query = "
-                insert into users
-                (first_name, last_name, email, pwd)
-                values(?, ?, ?, ?);
-            ";
-
-            $statement = $pdo -> prepare($query);
-
-            $statement -> execute([$first_name, $last_name, $email, $password]);
-
-            // close connection
-            $pdo = null;
-            $statement = null;
-
-            // redirect to signin page
-            header("Location: ../forms/signin/signin.html");
-
-            die();
-
-        } catch(PDOException $e) {
-            die("query failed : " . $e->getMessage());
+        if (fields_empty($first_name, $last_name, $email, $pwd)) {
+            $errors["empty_fields"] = "Fill in all fields.";
         }
-    } else {
-        header("Location: ../forms/signup/signup.html");
-    }
 
+        if (invalid_email($email)) {
+            $errors["invalid_email"] = "Invalid email.";
+        }
+
+        if (used_email($pdo, $email)) {
+            $errors["used_email"] = "Email already signed up with, try another one.";
+        }
+
+        require_once "config_session.inc.php";
+
+        if ($errors) {
+            $_SESSION["signup_errors"] = $errors;
+            $input_data = [
+                "first_name" => $first_name,
+                "last_name" => $last_name,
+                "email" => $email
+            ];
+            $_SESSION["input_data"] = $input_data;
+
+            header("Location: ../forms/signup/signup.php");
+            die();
+        }
+
+        create_user($pdo, $first_name, $last_name, $email, $pwd);
+
+        header("Location: ../forms/signup/signup.php?signup=successful");
+        $pdo = null;
+        $stmt = null;
+        die();
+        
+    } catch(PDOException $e) {
+        echo "An error occured : ". $e->getMessage();
+    }
 } else {
-    header("Location: ../forms/signup/signup.html");
+    header("Location: ../forms/signup/signup.php");
+    die();
 }

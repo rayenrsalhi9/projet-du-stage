@@ -1,3 +1,8 @@
+<?php
+  require_once "../../includes/config_session.inc.php";
+  require_once "../../includes/signup_mvc/signup_view.inc.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- navbar style -->
     <link rel="stylesheet" href="../../navbar.css">
-    <!-- signin style -->
+    <!-- signup style -->
     <link rel="stylesheet" href="../forms.css">
     <!-- main style -->
     <link rel="stylesheet" href="../../styles.css">
@@ -31,7 +36,7 @@
                 <a class="nav-link" href="../../about/about.html">About us</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="../signin/signin.html">Sign in</a>
+                <a class="nav-link" href="../signin/signin.php">Sign in</a>
                 </li>
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -61,35 +66,26 @@
             </form>
             </div>
         </div>
-        </nav>
+    </nav>
         
     <!-- end of navbar section -->
 
     <!-- start of signup -->
     <div class="container">
-        <form class="form-html" action="../../includes/signuphandler.inc.php" method="post">
+        <form class="form-html" action="../../includes/signuphandler.inc.php" method="POST">
           <div class="mb-3">
             <h1>Sign up</h1>
           </div>
-          <div class="mb-3">
-            <label for="first_name" class="form-label">First name</label>
-            <input type="text" class="form-control" name="first_name">
+          
+          <?php
+            display_form();
+          ?>
+
+          <div class="mb-3 alert-msgs">
+            <?php
+              check_signup_errors();
+            ?>
           </div>
-          <div class="mb-3">
-            <label for="last_name" class="form-label">Last name</label>
-            <input type="text" class="form-control" name="last_name">
-          </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" name="email" aria-describedby="email" placeholder="name@example.com">
-            <div id="emailHelp" class="form-text">Your email will <b>never</b> be shared with anyone</div>
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" name="password" placeholder="Must be +8 characters long.">
-          </div>
-          <p class="form-text">Already having an account?<a href="../signin/signin.html"> Sign in</a></p>
-          <button type="submit" class="btn btn-dark submit-button">Create account</button>
         </form>
       </div>
       
